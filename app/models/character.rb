@@ -1,9 +1,10 @@
 class Character
   attr_reader :name
   attr_reader :energy
+  BASE_NAME = "Character"
 
-  def initialize(name, energy=100)
-    @name = name
+  def initialize(number, energy=100)
+    @name = "#{BASE_NAME} #{number}"
     @energy = energy
   end
 
