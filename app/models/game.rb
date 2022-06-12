@@ -28,7 +28,7 @@ class Game
 
   def new_character_list
     Array.new(@character_number) do |i|
-      Character.new(i+1)
+      Knight.new(i+1)
     end
   end
 
