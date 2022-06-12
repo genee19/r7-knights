@@ -21,7 +21,6 @@ class Game
     # grant the right of move to the first characte
     @current_acting_character_index = alive_character_ids.first
     # initialize the moves counter
-    @move_number = 0
     @chronicles = []
   end
 
@@ -86,7 +85,6 @@ class Game
   end
 
   def next_move!
-    @move_number += 1
     attacker = current_acting_character
     target = closest_alive_character(@attack_direction)
 
