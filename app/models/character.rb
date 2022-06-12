@@ -17,9 +17,8 @@ class Character
 
   def take_damage(amount)
     @energy -= amount
-    if dead?
-      @energy = 0
-    end
+    @energy = 0 if dead?
+    amount
   end
 
   def make_damage(to_character, amount)
