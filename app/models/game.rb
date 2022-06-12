@@ -46,6 +46,7 @@ class Game
 
   def next_move!
     @move_number += 1
+    puts "#{current_acting_character.name} is active"
     # roll the dice
     dice = rand(1..6)
     # do the damage
