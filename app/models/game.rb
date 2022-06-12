@@ -49,7 +49,15 @@ class Game
     # roll the dice
     dice = rand(1..6)
     # do the damage
-    current_acting_character.make_damage(closest_alive_character(@attack_direction), dice)
+    make_damage(closest_alive_character(@attack_direction), dice)
+    advance_turn
+  end
+
+  def make_damage(to_character, amount)
+    current_acting_character.make_damage(to_character, amount)
+  end
+
+  def advance_turn
     # advance the turn to the closest alive character
     @current_acting_character_index = closest_alive_character_id(@turn_direction)
   end
