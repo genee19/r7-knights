@@ -3,7 +3,8 @@ class Game
   attr_reader :turn_direction
 
   def initialize(character_number, turn_direction: -1, attack_direction: -1)
-    @character_number = character_number
+    raise ArgumentError.new("this game is not fun - character_number must be greater than 1") if character_number <= 1
+    @character_number = character_number.to_i
     # validate and store directions
     @turn_direction = valid_direction(turn_direction)
     @attack_direction = valid_direction(attack_direction)
