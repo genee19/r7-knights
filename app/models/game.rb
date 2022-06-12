@@ -17,13 +17,11 @@ class Game
       @move_number += 1
       next_move!
     end
-
-    @winner = @characters[alive_character_ids.last]
   end
 
   def winner
     raise "The game needs to be played first" unless finished?
-    @winner
+    @characters[alive_character_ids.last]
   end
 
   private
