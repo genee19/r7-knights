@@ -13,6 +13,7 @@ class CharacterTest < ActiveSupport::TestCase
     assert_equal 100, character.energy
     character.take_damage(5)
     assert_equal 95, character.energy
+    assert character.alive?, "With some energy, the character is not yet dead"
     character.take_damage(95)
     assert_equal 0, character.energy
     assert character.dead?, "When all energy is expleted, character is dead"
