@@ -13,3 +13,28 @@
  *= require_tree .
  *= require_self
  */
+
+html, body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+label {
+  display: flex;
+}
+
+span.control {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+input[type="range"]{
+  width: 100%;
+}
+
+input[type="range"] + datalist {
+  display: flex;
+  justify-content: space-between;
+}

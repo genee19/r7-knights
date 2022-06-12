@@ -1,0 +1,38 @@
+<h1>Start a new game of knights:</h1>
+<%= form_with url: game_url, method: :post, data: {turbo: false} do %>
+  <p>
+    <label>
+      <span class="label">How many characters?:</span>
+      <span class="control">
+        <input name="character_number" type="number" min="2" max="20" step="1" datalist="character_number_datalist" value="10">
+      </span>
+    </label>
+  </p>
+  <p>
+    <label>
+      <span class="label">Right of next turn should pass to:</span>
+      <span class="control">
+        <input name="turn_direction" type="range" min="-1" max="1" step="1" datalist="turn_direction" value="-1">
+        <datalist id="turn_direction">
+          <option value="-1">Previous</option>
+          <option value="0">Random</option>
+          <option value="1">Next</option>
+        </datalist>
+    </label>
+  </p>
+  <p>
+    <label>
+      <span class="label">Attack goes against:</span>
+      <span class="control">
+        <input name="attack_direction" type="range" min="-1" max="1" step="1" datalist="attack_direction" value="-1">
+        <datalist id="attack_direction">
+          <option value="-1">Previous</option>
+          <option value="0">Random</option>
+          <option value="1">Next</option>
+        </datalist>
+    </label>
+  </p>
+  <p>
+    <%= submit_tag "Play!" %>
+  </p>
+<% end %>
