@@ -4,14 +4,19 @@ class Game
   attr_reader :attack_direction
   attr_reader :characters
 
-  def initialize(character_number, turn_direction: -1, attack_direction: -1)
+  def initialize(character_number, witches_percentage: 0, turn_direction: -1, attack_direction: -1)
     raise ArgumentError.new("this game is not fun - character_number must be greater than 1") if character_number <= 1
     @character_number = character_number.to_i
     # validate and store directions
     @turn_direction = valid_direction(turn_direction)
     @attack_direction = valid_direction(attack_direction)
+    # validate witches percentage
+    @witches_percentage = witches_percentage.to_f.clamp(0, 100)
     # generate a list of characters
-    @characters = new_character_list
+    @characters = new_character_list(
+      Witch => @witches_percentage / 100.0,
+      Knight => (100 - @witches_percentage) / 100.0,
+    )
     # grant the right of move to the first characte
     @current_acting_character_index = alive_character_ids.first
     # initialize the moves counter
@@ -47,10 +52,35 @@ class Game
     return 0
   end
 
-  def new_character_list
+  def new_character_list(desired_ratio)
+    desired_ratio.reject!{|_, value| value == 0}
+    tally = desired_ratio.transform_values { |_| 0}
+
     Array.new(@character_number) do |i|
-      Knight.new(i+1)
+      next_character_class = character_class_from_ratio(desired_ratio, tally)
+      tally[next_character_class] += 1
+      next_character_class.new(tally[next_character_class])
     end
+  end
+
+  def character_class_from_ratio(desired_ratio, current_tally)
+    sum = hash_total(current_tally)
+    current_ratio = tally_to_ratio(current_tally)
+    pending_ratio = desired_ratio.merge(current_ratio) { |_, old_value, new_value| old_value - new_value }
+    pending_ratio.max_by{|_, value| value}.first
+  end
+
+  def tally_to_ratio(tally)
+    sum = hash_total(tally)
+    if sum > 0
+      return tally.transform_values { |value| value.to_f / sum }
+    else
+      return tally.transform_values { |_| 0 }
+    end
+  end
+
+  def hash_total(hash)
+    hash.values.sum
   end
 
   def next_move!
