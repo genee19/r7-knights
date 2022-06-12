@@ -87,21 +87,46 @@ class Game
 
   def next_move!
     @move_number += 1
-    puts "#{current_acting_character.name} is active"
+    attacker = current_acting_character
+    target = closest_alive_character(@attack_direction)
+
     # roll the dice
     dice = rand(1..6)
+
+    chronicles_entry = {
+      current_acting_character_index: @current_acting_character_index,
+      current_acting_character: attacker.name,
+      text: ["#{current_acting_character.name} is active"],
+      dice: dice,
+      target: target.name,
+    }
+
     # do the damage
-    make_damage(closest_alive_character(@attack_direction), dice)
+    damage_part = make_damage(target, dice)
+    chronicles_entry.merge! damage_part
+
+    chronicles_entry[:text] << "#{attacker.name} (#{attacker.energy}) attacks #{target.name} (#{target.energy}) with #{chronicles_entry[:damage]} damage"
+    if chronicles_entry[:target_dead]
+      chronicles_entry[:text] << "#{target.name} is dead"
+    end
+
+    puts chronicles_entry[:text].join("\n")
+    @chronicles << chronicles_entry
+
     advance_turn!
+
+    chronicles_entry
   end
 
   def make_damage(target, amount)
+    scroll_entry_part = {}
     attacker = current_acting_character
-    puts "#{attacker.name} (#{attacker.energy}) attacks #{target.name} (#{target.energy}) #{amount}with #{amount} damage"
-    current_acting_character.make_damage(target, amount)
+    scroll_entry_part[:damage] = current_acting_character.make_damage(target, amount)
     if target.dead?
-      puts "#{target.name} is dead"
+      scroll_entry_part[:target_dead] = true
     end
+
+    scroll_entry_part
   end
 
   def advance_turn!
