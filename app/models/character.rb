@@ -1,5 +1,6 @@
 class Character
   attr_reader :name
+  attr_reader :energy
 
   def initialize(name, energy=100)
     @name = name
@@ -20,5 +21,10 @@ class Character
       @energy = 0
       puts "#{@name} is dead"
     end
+  end
+
+  def make_damage(to_character, amount)
+    puts "#{@name} (#{@energy}) rolled #{amount} and hits #{to_character.name} (#{to_character.energy})"
+    to_character.take_damage(amount)
   end
 end
