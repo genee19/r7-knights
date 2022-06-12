@@ -56,8 +56,13 @@ class Game
     advance_turn
   end
 
-  def make_damage(to_character, amount)
-    current_acting_character.make_damage(to_character, amount)
+  def make_damage(target, amount)
+    attacker = current_acting_character
+    puts "#{attacker.name} (#{attacker.energy}) attacks #{target.name} (#{target.energy}) #{amount}with #{amount} damage"
+    current_acting_character.make_damage(target, amount)
+    if target.dead?
+      puts "#{target.name} is dead"
+    end
   end
 
   def advance_turn
