@@ -62,7 +62,7 @@ class Game
 
   def advance_turn
     if @turn_direction == 0
-      @current_acting_character_index = alive_character_ids.sample
+      @current_acting_character_index = alive_character_ids.excluding(@current_acting_character_index).sample
     else
       # advance the turn to the closest alive character
       @current_acting_character_index = closest_alive_character_id(@turn_direction)
