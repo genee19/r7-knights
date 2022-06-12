@@ -14,7 +14,6 @@ class Game
 
   def play!
     while !finished?
-      @move_number += 1
       next_move!
     end
     winner
@@ -34,6 +33,7 @@ class Game
   end
 
   def next_move!
+    @move_number += 1
     # roll the dice
     dice = rand(1..6)
     # do the damage
