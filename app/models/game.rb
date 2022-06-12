@@ -2,6 +2,7 @@ class Game
   attr_reader :character_number
   attr_reader :turn_direction
   attr_reader :attack_direction
+  attr_reader :characters
 
   def initialize(character_number, turn_direction: -1, attack_direction: -1)
     raise ArgumentError.new("this game is not fun - character_number must be greater than 1") if character_number <= 1
