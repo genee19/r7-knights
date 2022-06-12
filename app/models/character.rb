@@ -1,10 +1,9 @@
 class Character
   attr_reader :name
   attr_reader :energy
-  BASE_NAME = "Character"
 
   def initialize(number, energy=100)
-    @name = "#{BASE_NAME} #{number}"
+    @name = "#{base_name} #{number}"
     @energy = energy
   end
 
@@ -27,5 +26,11 @@ class Character
   def make_damage(to_character, amount)
     puts "#{@name} (#{@energy}) rolled #{amount} and hits #{to_character.name} (#{to_character.energy})"
     to_character.take_damage(amount)
+  end
+
+  private
+
+  def base_name
+    "Character"
   end
 end
