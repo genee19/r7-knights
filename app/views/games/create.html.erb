@@ -1,4 +1,18 @@
-<h1>A game of <%=@game.character_number %> knights</h1>
+<h1>A game of knights</h1>
+<p>Settings:
+  <ol>
+    <li>Right of next turn passes to <%= direction_description(@game.turn_direction)%> character</li>
+    <li>Attack goes against <%= direction_description(@game.attack_direction)%> character</li>
+  </ol>
+</p>
+<p>
+  Characters:
+  <ul>
+    <% @game.characters.each do |character| %>
+      <li><%= character.name %></li>
+    <% end %>
+  </ul>
+</p>
 <p>
   <pre>
 <%- @game.chronicles.each do |entry| %>
