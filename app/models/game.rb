@@ -34,6 +34,10 @@ class Game
     @characters[alive_character_ids.last]
   end
 
+  def current_acting_character
+    @characters[@current_acting_character_index]
+  end
+
   private
 
   def valid_direction(direction)
@@ -91,10 +95,6 @@ class Game
   # returns 1 or -1 at random
   def random_direction
     (rand(0..1) * 2) - 1
-  end
-
-  def current_acting_character
-    @characters[@current_acting_character_index]
   end
 
   def closest_alive_character(direction)
