@@ -2,10 +2,11 @@ class Game
   attr_reader :character_number
   attr_reader :turn_direction
 
-  def initialize(character_number, turn_direction: -1)
+  def initialize(character_number, turn_direction: -1, attack_direction: -1)
     @character_number = character_number
-    # validate and store turn direction
+    # validate and store directions
     @turn_direction = valid_direction(turn_direction)
+    @attack_direction = valid_direction(attack_direction)
     # generate a list of characters
     @characters = new_character_list
     # grant the right of move to the first characte
@@ -48,7 +49,7 @@ class Game
     # roll the dice
     dice = rand(1..6)
     # do the damage
-    current_acting_character.make_damage(next_acting_character, dice)
+    current_acting_character.make_damage(closest_alive_character(@attack_direction), dice)
     # advance the turn to the closest alive character
     @current_acting_character_index = closest_alive_character_id(@turn_direction)
   end
@@ -68,7 +69,7 @@ class Game
     @characters[@current_acting_character_index]
   end
 
-  def next_acting_character
-    @characters[closest_alive_character_id]
+  def closest_alive_character(direction)
+    @characters[closest_alive_character_id(direction)]
   end
 end
