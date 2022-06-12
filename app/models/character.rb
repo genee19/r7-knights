@@ -1,5 +1,8 @@
 class Character
-  def initialize(energy=100)
+  attr_reader :name
+
+  def initialize(name, energy=100)
+    @name = name
     @energy = energy
   end
 
@@ -15,6 +18,7 @@ class Character
     @energy -= amount
     if dead?
       @energy = 0
+      puts "#{@name} is dead"
     end
   end
 end
