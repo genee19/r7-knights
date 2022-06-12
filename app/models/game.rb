@@ -3,6 +3,7 @@ class Game
   attr_reader :turn_direction
   attr_reader :attack_direction
   attr_reader :characters
+  attr_reader :chronicles
 
   def initialize(character_number, witches_percentage: 0, turn_direction: -1, attack_direction: -1)
     raise ArgumentError.new("this game is not fun - character_number must be greater than 1") if character_number <= 1
@@ -21,6 +22,7 @@ class Game
     @current_acting_character_index = alive_character_ids.first
     # initialize the moves counter
     @move_number = 0
+    @chronicles = []
   end
 
   def finished?
