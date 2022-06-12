@@ -17,6 +17,7 @@ class Game
       @move_number += 1
       next_move!
     end
+    winner
   end
 
   def winner
