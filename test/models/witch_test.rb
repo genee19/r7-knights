@@ -45,7 +45,7 @@ class WitchTest < ActiveSupport::TestCase
     assert target.dead?
   end
 
-  test "make damage to a knight" do
+  test "make double damage to a knight" do
     attacker = Witch.new(1, 10)
     assert_equal 10, attacker.energy
     target = Knight.new(2, 10)
