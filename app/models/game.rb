@@ -105,9 +105,11 @@ class Game
     damage_part = make_damage(target, dice)
     chronicles_entry.merge! damage_part
 
-    chronicles_entry[:text] << "#{attacker.name} (#{attacker.energy}) attacks #{target.name} (#{target.energy}) with #{chronicles_entry[:damage]} damage"
+    chronicles_entry[:text] << "#{attacker.name} attacks #{target.name} with #{chronicles_entry[:damage]} damage"
     if chronicles_entry[:target_dead]
       chronicles_entry[:text] << "#{target.name} is dead"
+    else
+      chronicles_entry[:text] << "#{target.name} has #{target.energy} energy left now"
     end
 
     puts chronicles_entry[:text].join("\n")
