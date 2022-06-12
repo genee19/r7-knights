@@ -35,7 +35,9 @@ class Game
   private
 
   def valid_direction(direction)
-    direction >= 0 ? 1 : -1
+    return 1 if direction > 0
+    return -1 if direction < 0
+    return 0
   end
 
   def new_character_list
@@ -68,10 +70,16 @@ class Game
   end
 
   def closest_alive_character_id(direction = 1)
+    direction = random_direction if direction == 0
     # from the alive character ids choose the next or previous
     new_id_index = (alive_character_ids.find_index(@current_acting_character_index) + direction) % alive_character_ids.size
     # that was an index in array of indexes, too meta
     alive_character_ids[new_id_index]
+  end
+
+  # returns 1 or -1 at random
+  def random_direction
+    (rand(0..1) * 2) - 1
   end
 
   def current_acting_character
