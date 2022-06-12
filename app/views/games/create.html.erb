@@ -1,3 +1,10 @@
 <h1>A game of <%=@game.character_number %> knights</h1>
+<p>
+  <pre>
+<%- @game.chronicles.each do |entry| %>
+<%= entry[:text].join("\r\n") %>
+<%- end %>
+  </pre>
+</pre>
 <p><%= @game.winner.name%> won!</p>
 <p><a href="<%= root_path%>"><button>Start another one</button></a></p>
